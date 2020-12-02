@@ -1,0 +1,11 @@
+﻿@using System.Security.Claims
+<h2>Logged in as</h2>
+<h1>@User.Identity.Name</h1>
+<div class="row">
+    <div class="col-12">
+        @foreach (var role in ((ClaimsIdentity)User.Identity).Claims)
+        {
+            <p><strong>@role.Type</strong>: @role.Value</p>
+        }
+    </div>
+</div>
