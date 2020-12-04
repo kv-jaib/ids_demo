@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4.Models;
+using IdentityServer4.Services;
 using IdentityServer4.Test;
 using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,8 @@ namespace IdentityServer
                 .AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();
+
+            services.AddSingleton<IProfileService, ProfileService>();
         }
 
         private IEnumerable<ApiScope> GetApiScopes()
@@ -113,7 +116,6 @@ namespace IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     AlwaysSendClientClaims =  true,
                     AlwaysIncludeUserClaimsInIdToken =  true
-
                 }
             };
         }

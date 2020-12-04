@@ -9,7 +9,7 @@ namespace ServiceAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        [Authorize]
+        [Authorize(Roles = "admin80")]
         // GET api/values
         public IEnumerable<string> Get()
         {
