@@ -32,9 +32,10 @@ namespace Client_Two.Controllers
         }
 
         [AllowAnonymous]
-        public void Logout()
+        public ActionResult Logout()
         {
-            HttpContext.GetOwinContext().Authentication.SignOut();
+            HttpContext.GetOwinContext().Authentication.SignOut("cookie");
+            return Redirect("/");
         }
 
         [AllowAnonymous]

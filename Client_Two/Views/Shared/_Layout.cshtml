@@ -30,7 +30,16 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Login", "Login", "Home")
+                        }
+                    </li>
                 </ul>
             </div>
         </div>
