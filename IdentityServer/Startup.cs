@@ -95,7 +95,7 @@ namespace IdentityServer
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://scl.com"
+                        "https://scl.com/home"
                     },
                     FrontChannelLogoutUri = "https://scl.com/home/FrontLogout",
                     ClientSecrets =

@@ -39,6 +39,7 @@ namespace Client_Two
             {
                 Authority = "https://localhost:44349/",
                 RedirectUri = "https://scl.com/home",
+                PostLogoutRedirectUri = "https://scl.com/home",
                 ClientId = "Client_Two",
                 ClientSecret = "password",
                 ResponseType = "code id_token token",
@@ -70,6 +71,11 @@ namespace Client_Two
                             // remember code verifier in cookie (adapted from OWIN nonce cookie)
                             // see: https://github.com/scottbrady91/Blog-Example-Classes/blob/master/AspNetFrameworkPkce/ScottBrady91.BlogExampleCode.AspNetPkce/Startup.cs#L85
                             RememberCodeVerifier(n, codeVerifier);
+                        } 
+                        else if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.Logout)
+                        {
+                            n.ProtocolMessage.IdTokenHint = n.OwinContext.Authentication.User.FindFirst("id_token")?.Value;
+                            //n.ProtocolMessage.PostLogoutRedirectUri = "https://scl.com/home";
                         }
 
                         return Task.CompletedTask;
@@ -97,12 +103,11 @@ namespace Client_Two
                 TokenValidationParameters = new TokenValidationParameters()
                 {
                     NameClaimType = JwtClaimTypes.Name
-                },
-
+                }
             });
         }
 
-           private void RememberCodeVerifier(RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> n, string codeVerifier)
+        private void RememberCodeVerifier(RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> n, string codeVerifier)
         {
             var properties = new AuthenticationProperties();
             properties.Dictionary.Add("cv", codeVerifier);

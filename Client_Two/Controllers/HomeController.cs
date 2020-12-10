@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using IdentityModel.Client;
+using Microsoft.Owin.Security;
 
 namespace Client_Two.Controllers
 {
@@ -34,7 +35,7 @@ namespace Client_Two.Controllers
         [AllowAnonymous]
         public ActionResult Logout()
         {
-            HttpContext.GetOwinContext().Authentication.SignOut("cookie");
+            HttpContext.GetOwinContext().Authentication.SignOut();
             return Redirect("/");
         }
 
